@@ -1,6 +1,6 @@
-import enum 
-from utils import *
+import enum
 
+# Enum for states
 class States(enum.Enum):
     AL = 'AL'
     AK = 'AK'
@@ -65,7 +65,7 @@ class States(enum.Enum):
     def coerce(cls, item):
         return item if isinstance(item, States) else States[item]
 
-
+# Enum For Genres
 class Genres(enum.Enum):
     # got this from stack overflow 
     # https://stackoverflow.com/questions/44078845/using-wtforms-with-enum
@@ -100,6 +100,7 @@ class Genres(enum.Enum):
     def coerce(cls, item):
         return item if isinstance(item, Genres) else Genres(item)
 
+# Enum for Seek(Venu|Talent)
 class Seek(enum.Enum):
     Yes = True
     No = False
@@ -113,7 +114,6 @@ class Seek(enum.Enum):
     @classmethod
     def choices(cls):
         for choice in cls:
-            #print ("choice "+ choice.name)
             return [(choice, choice.name) for choice in cls]
 
     @classmethod
@@ -121,7 +121,6 @@ class Seek(enum.Enum):
         if isinstance(item, Seek):
             return item
         else:
-            print (item)
             if item == 'True' or item=='Yes' or  item==True:
                 return Seek.Yes
             else:

@@ -7,6 +7,7 @@ import datetime
 #----------------------------------------------------------------------------#
 db = SQLAlchemy()
 
+# common base model for Artists and Venues
 class Entity(db.Model):
     __abstract__ = True
     id = db.Column(db.Integer, primary_key=True)
@@ -21,7 +22,9 @@ class Entity(db.Model):
 
 
     seeking_description = db.Column(db.String(), nullable=True)
-
+    
+    # model a hybrid property for upcoming shows and post shows
+    # that looks into shows
     @hybrid_property
     def upcoming_shows(self):
         upcomingShows = []
@@ -40,6 +43,7 @@ class Entity(db.Model):
                 pastShows.append(show)
         return pastShows
 
+# Venue derives from Entity mode
 class Venue(Entity):
     __tablename__ = 'Venue'
   
@@ -52,6 +56,7 @@ class Venue(Entity):
     def __repr__(self):
         return f'<Venue Id: {self.id} Name: {self.name} City: {self.city} State: {self.state} phone: {self.phone} genres: {self.genres} image_link: {self.image_link} fb_link: {self.facebook_link}>'
 
+# Artist derives from Entity Model
 class Artist(Entity):
     __tablename__ = 'Artist'   
 
@@ -62,8 +67,7 @@ class Artist(Entity):
 
 
 
-
-#TODO Implement Show and Artist models, and complete all model relationships and properties, as a database migration.
+# Show Form
 class Show(db.Model):
     __tablename__ = 'Show'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)

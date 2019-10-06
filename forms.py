@@ -7,6 +7,7 @@ from wtforms.validators import DataRequired, InputRequired, AnyOf, URL
 from enums import Genres, Seek, States
 import re
 
+# Form for Shows
 class ShowForm(Form):
     artist_id = StringField(
         'artist_id'
@@ -20,6 +21,7 @@ class ShowForm(Form):
         default= datetime.today()
     )
 
+# Entity Form common to Artists and Venues
 class EntityForm(Form):
     name = StringField(
         'name', validators=[DataRequired()]
@@ -67,6 +69,7 @@ class EntityForm(Form):
     seeking_description = TextAreaField(
         'seeking_description')
 
+# Form for Venue
 class VenueForm(EntityForm):
     address = StringField(
         'address'
@@ -77,6 +80,7 @@ class VenueForm(EntityForm):
         choices= Seek.choices(), coerce=Seek.coerce
     )
 
+# Form for Artist
 class ArtistForm(EntityForm):
 
     seeking_venue = SelectField(
