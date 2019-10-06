@@ -10,9 +10,9 @@ DEBUG = True
 
 
 # TODO IMPLEMENT DATABASE URL
-SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://madhavrajan:wallman@localhost:5432/fyyur'
+SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://madhavrajan:@localhost:5432/fyyur'
 SQLALCHEMY_TRACK_MODIFICATIONS ='FALSE'
 
 
-WTF_CSRF_METHODS = []  # This is the magic
+WTF_CSRF_METHODS = []
 WTF_CSRF_ENABLED = False

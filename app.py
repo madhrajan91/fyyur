@@ -81,8 +81,7 @@ def venues():
       cityVenue = {}
       cityVenue["id"] = venue.id
       cityVenue["name"] = venue.name
-      cityVenue["num_upcoming_shows"] = len(venue.upcoming_shows)
-      
+      cityVenue["num_upcoming_shows"] = len(venue.upcoming_shows)     
       
       cityVenues['venues'].append(cityVenue)
 
@@ -231,16 +230,16 @@ def edit_venue(venue_id):
     data={
     "id": venue.id,
     "name": venue.name,
-    "genres": eval(venue.genres) if venue.genres != '' else '',#["Jazz", "Reggae", "Swing", "Classical", "Folk"],
+    "genres": eval(venue.genres) if venue.genres != '' else '',
     "address": venue.address,
     "city": venue.city,
     "state": States(venue.state),
     "phone": venue.phone,
     "website": venue.website,
-    "facebook_link": venue.facebook_link,#"https://www.facebook.com/TheMusicalHop",
+    "facebook_link": venue.facebook_link,
     "seeking_talent": Seek(venue.seeking_talent),
-    "seeking_description": venue.seeking_description,#"We are on the lookout for a local artist to play every two weeks. Please call us.",
-    "image_link": venue.image_link#"https://images.unsplash.com/photo-1543900694-133f37abaaa5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60"
+    "seeking_description": venue.seeking_description,
+    "image_link": venue.image_link
   }
     
     form.state.data = States(venue.state)
