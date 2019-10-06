@@ -37,6 +37,7 @@ Our tech stack will include:
   ├── error.log
   ├── forms.py *** Your forms
   ├── models.py  *** Your SQL Alchemy models
+  |__ enums.py *** Enums
   ├── requirements.txt *** The dependencies we need to install with "pip3 install -r requirements.txt"
   ├── static
   │   ├── css 
