@@ -72,6 +72,8 @@ def venues():
   cityVenues = {}
   for venue in venues:
       if currCity != venue.city:
+        if currCity != "":
+          data.append(cityVenues)
         currCity = venue.city
         cityVenues = {}
         cityVenues["city"] = venue.city
@@ -86,8 +88,9 @@ def venues():
       cityVenues['venues'].append(cityVenue)
 
       print(cityVenues)
-    
-      data.append(cityVenues)  
+  data.append(cityVenues)
+      
+  print(data)
   return render_template('pages/venues.html', areas=data)
 
 @app.route('/venues/search', methods=['POST'])
