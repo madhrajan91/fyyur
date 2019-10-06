@@ -87,10 +87,8 @@ def venues():
       
       cityVenues['venues'].append(cityVenue)
 
-      print(cityVenues)
   data.append(cityVenues)
-      
-  print(data)
+    
   return render_template('pages/venues.html', areas=data)
 
 @app.route('/venues/search', methods=['POST'])
@@ -99,7 +97,7 @@ def search_venues():
   # seach for Hop should return "The Musical Hop".
   # search for "Music" should return "The Musical Hop" and "Park Square Live Music & Coffee"
   key = request.form["search_term"]
-  print(key)
+
   venues = Venue.query.filter(Venue.name.ilike("%"+key+"%"))
   response = {}
   response["count"] = venues.count()
@@ -112,7 +110,6 @@ def search_venues():
     })
 
   response["data"] = data
-  print(response)
   return render_template('pages/search_venues.html', results=response, search_term=request.form.get('search_term', ''))
 
 @app.route('/venues/<int:venue_id>')
@@ -120,7 +117,6 @@ def show_venue(venue_id):
   # shows the venue page with the given venue_id
   # TODO: replace with real venue data from the venues table, using venue_id
   venue = Venue.query.get(venue_id)
-  print (venue.name +" " + str(venue.genres))
   
   data = {}
   data["id"] = venue.id
@@ -163,8 +159,6 @@ def show_venue(venue_id):
   data["past_shows_count"] = len(venue.past_shows)
   data["past_shows"] = past_shows
 
-
-  #data = list(filter(lambda d: d['id'] == venue_id, [data1, data2, data3]))[0]
   return render_template('pages/show_venue.html', venue=data)
 
 #  Create Venue
@@ -195,7 +189,6 @@ def create_venue_submission():
                       seeking_talent = str_to_bool(request.form['seeking_talent']),
                       website = request.form['website'])
       
-      print(venue)
       db.session.add(venue)
       db.session.commit()
     except:
@@ -264,8 +257,7 @@ def edit_venue_submission(venue_id):
   error = False
   form = VenueForm(request.form)
   if (form.validate()):
-    print ('edit POST')
-    print(str(request.form.getlist('genres')))
+
     try:
       venue = Venue.query.get(venue_id)
       venue.name = request.form['name']
@@ -334,7 +326,6 @@ def search_artists():
   # seach for "A" should return "Guns N Petals", "Matt Quevado", and "The Wild Sax Band".
   # search for "band" should return "The Wild Sax Band".
   key = request.form["search_term"]
-  print(key)
   artists = Artist.query.filter(Artist.name.ilike("%"+key+"%"))
   response = {}
   response["count"] = artists.count()
@@ -357,8 +348,7 @@ def show_artist(artist_id):
   # TODO: replace with real artist data from the artist table, using artist_id
 
   artist = Artist.query.get(artist_id)
-  print (artist.genres)
-  
+ 
   data = {}
   data["id"] = artist.id
   data["name"] = artist.name
@@ -461,7 +451,6 @@ def edit_artist_submission(artist_id):
       artist.seeking_venue =  str_to_bool(request.form['seeking_venue'])
       artist.seeking_description = request.form['seeking_description']
       artist.website = request.form['website']
-      print(artist.seeking_venue)
       db.session.commit()
     except:
       error = True
@@ -505,8 +494,7 @@ def create_artist_submission():
                       seeking_venue = str_to_bool(request.form['seeking_venue']),
                       seeking_description = request.form['seeking_description'],
                       website = request.form['website'])
-      
-      print(artist)
+
       db.session.add(artist)
       db.session.commit()
     except:
@@ -566,8 +554,7 @@ def create_show_submission():
     show = Show(artist_id = request.form['artist_id'],
               venue_id = request.form['venue_id'],
               start_time = request.form['start_time'])
-    
-    print(show)
+
     db.session.add(show)
     db.session.commit()
   except:
