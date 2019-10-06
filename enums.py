@@ -1,4 +1,5 @@
 import enum 
+from utils import *
 
 class States(enum.Enum):
     AL = 'AL'
@@ -93,23 +94,35 @@ class Genres(enum.Enum):
 
     @classmethod
     def choices(cls):
-        return [(choice, choice.name) for choice in cls]
+        return [(choice, choice.value) for choice in cls]
 
     @classmethod
     def coerce(cls, item):
-        return item if isinstance(item, Genres) else Genres[item]
+        return item if isinstance(item, Genres) else Genres(item)
 
 class Seek(enum.Enum):
     Yes = True
     No = False
 
+    def __bool__(self):
+        return self.value
+    
     def __str__(self):
         return str(self.value)
 
     @classmethod
     def choices(cls):
-        return [(choice, choice.name) for choice in cls]
+        for choice in cls:
+            #print ("choice "+ choice.name)
+            return [(choice, choice.name) for choice in cls]
 
     @classmethod
     def coerce(cls, item):
-        return item if isinstance(item, Seek) else Seek[item]
+        if isinstance(item, Seek):
+            return item
+        else:
+            print (item)
+            if item == 'True' or item=='Yes' or  item==True:
+                return Seek.Yes
+            else:
+                return Seek.No

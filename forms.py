@@ -1,11 +1,11 @@
 from datetime import datetime
 from flask_wtf import Form
 from wtforms import StringField, SelectField, SelectMultipleField, DateTimeField, TextAreaField, validators, ValidationError
-from wtforms.validators import DataRequired, AnyOf, URL
-#import phonenumbers
+from wtforms.validators import DataRequired, InputRequired, AnyOf, URL
+
 
 from enums import Genres, Seek, States
-
+import re
 
 class ShowForm(Form):
     artist_id = StringField(
@@ -32,28 +32,22 @@ class EntityForm(Form):
         default=States.AL, validators=[DataRequired()],
         choices= States.choices(), coerce=States.coerce
     )
-    address = StringField(
-        'address', validators=[DataRequired()]
-    )
     phone = StringField(
         'phone'
     )
-    # def validate_phone(form, field):
-    #     if len(field.data) > 16:
-    #         raise ValidationError('Phone number contians more than 16 characters')
-    #     else:
-    #         try:
-    #             input_number = phonenumbers.parse(field.data)
-    #             if not (phonenumbers.is_valid_number(input_number)):
-    #                 raise ValidationError('Invalid phone number.')
-    #         except:
-    #             input_number = phonenumbers.parse("+1"+field.data)
-    #             if not (phonenumbers.is_valid_number(input_number)):
-    #                 raise ValidationError('Invalid phone number.')
+    def validate_phone(form, field):
+        print ('validating phone')
+        data = field.data
+        if (data is not None):
+            phone_number = data.replace('-', '')
+            print (phone_number)
+            if len(phone_number) != 10:
+                raise ValidationError("Phone number must be of the formation XXX-XXX-XXXX")
+            else:
+                pattern = re.compile("^[\d]{10}$")
+                if (pattern.match(phone_number) is None):
+                    raise ValidationError("Phone number must be of the formation XXX-XXX-XXXX")
 
-    image_link = StringField(
-        'image_link'
-    )
     genres = SelectMultipleField('genres', validators=[DataRequired()],
             choices=Genres.choices(), coerce=Genres.coerce
             )
@@ -72,19 +66,21 @@ class EntityForm(Form):
 
     seeking_description = TextAreaField(
         'seeking_description')
+
 class VenueForm(EntityForm):
     address = StringField(
-        'address', validators=[DataRequired()]
+        'address'
     )
 
     seeking_talent = SelectField(
-        'seeking_talent', default=Seek.Yes, validators=[DataRequired()],
+        'seeking_talent', default=Seek.Yes, validators=[InputRequired()],
         choices= Seek.choices(), coerce=Seek.coerce
     )
 
 class ArtistForm(EntityForm):
 
-    seeking_venue = SelectField('seeking_venue',
-        default=Seek.Yes, validators=[DataRequired()],
+    seeking_venue = SelectField(
+        'seeking_venue',
+        default=Seek.Yes, validators=[InputRequired()],
         choices=Seek.choices(), coerce=Seek.coerce
     )
