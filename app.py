@@ -66,7 +66,7 @@ def venues():
   # TODO: replace with real venues data.
   #       num_shows should be aggregated based on number of upcoming shows per venue.
   data = []
-  venues = Venue.query.filter().order_by(Venue.state, Venue.city)
+  venues = Venue.query.filter().order_by(Venue.state, Venue.city, Venue.name)
   
   currCity = ""
   cityVenues = {}
@@ -228,19 +228,19 @@ def edit_venue(venue_id):
     form = VenueForm()
     print(venue)
     data={
-    "id": venue.id,
-    "name": venue.name,
-    "genres": eval(venue.genres) if venue.genres != '' else '',
-    "address": venue.address,
-    "city": venue.city,
-    "state": States(venue.state),
-    "phone": venue.phone,
-    "website": venue.website,
-    "facebook_link": venue.facebook_link,
-    "seeking_talent": Seek(venue.seeking_talent),
-    "seeking_description": venue.seeking_description,
-    "image_link": venue.image_link
-  }
+      "id": venue.id,
+      "name": venue.name,
+      "genres": eval(venue.genres) if venue.genres != '' else '',
+      "address": venue.address,
+      "city": venue.city,
+      "state": States(venue.state),
+      "phone": venue.phone,
+      "website": venue.website,
+      "facebook_link": venue.facebook_link,
+      "seeking_talent": Seek(venue.seeking_talent),
+      "seeking_description": venue.seeking_description,
+      "image_link": venue.image_link
+    }
     
     form.state.data = States(venue.state)
     form.seeking_talent.data = Seek(venue.seeking_talent)
@@ -316,7 +316,7 @@ def delete_venue(venue_id):
 def artists():
   # TODO: replace with real data returned from querying the database
   data = []
-  artists = Artist.query.all()
+  artists = Artist.query.filter().order_by(Artist.name)
   
   for artist in artists:
     data.append({

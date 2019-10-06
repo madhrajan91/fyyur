@@ -26,24 +26,27 @@
       <div class="form-group">
         <label for="genres">Genres</label>
         <small>Ctrl+Click to select multiple</small>
-        {{ form.genres(class_ = 'form-control', placeholder='Genres, separated by commas', id=form.genres, autofocus = true, value = artist.genres) }}
+        {{ form.genres(class_ = 'form-control', placeholder='Genres, separated by commas', autofocus = true, value = artist.genres) }}
       </div>
       <div class="form-group">
         <label for="image_link">Image Link</label>
-        {{ form.image_link(class_ = 'form-control', placeholder='http://', id=form.image_link, autofocus = true, value = artist.image_link)  }}
+        {{ form.image_link(class_ = 'form-control', placeholder='http://', autofocus = true, value = artist.image_link)  }}
       </div>
       <div class="form-group">
           <label for="facebook_link">Facebook Link</label>
-          {{ form.facebook_link(class_ = 'form-control', placeholder='http://', id=form.facebook_link, autofocus = true, value = artist.facebook_link)  }}
+          {{ form.facebook_link(class_ = 'form-control', placeholder='http://', autofocus = true, value = artist.facebook_link)  }}
      </div>
       <div class="form-group">
         <label for="seeking_venue">Seeking Venue</label>
-        {{ form.seeking_venue(class_ = 'form-control', id=form.seeking_venue, autofocus = true, value = artist.seeking_venue) }}
+        {{ form.seeking_venue(class_ = 'form-control', autofocus = true, value = artist.seeking_venue) }}
       </div>
       <div class="form-group">
         <label for="seeking_description">Seeking Description</label>
-        {{ form.seeking_description(class_ = 'form-control', id=form.seeking_description, autofocus = true, value = artist.seeking_description) }}
+        {{ form.seeking_description(class_ = 'form-control', id="seeking_description", autofocus = true) }}
       </div>
+      <script>
+          document.getElementById("seeking_description").value="{{ artist.seeking_description }}";
+      </script>
       <div class="form-group">
         <label for="website">Website</label>
         {{ form.website(class_ = 'form-control', id=form.website, autofocus = true, value = artist.website) }}
